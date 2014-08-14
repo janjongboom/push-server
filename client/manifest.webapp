@@ -10,12 +10,8 @@
     "url": "http://telenor.com"
   },
   "permissions": {
-    "push": {
-      "description": "To receive notifications"
-    },
-    "desktop-notification": {
-      "description": "To show notifications"
-    }
+    "push": {"description": "To receive notifications"},
+    "desktop-notification": {}
   },
   "messages": [
     {"push": "/push.html"},

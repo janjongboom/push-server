@@ -12,4 +12,29 @@ var app = express();
 app.use(express.bodyParser());
 app.use(helper.allowCors);
 
+app.post('/register', function(req, res) {
+  console.log('register called', req.body.url);
+
+  db.push(req.body.url);
+
+  res.send('OK!');
+});
+
+app.post('/trigger', function(req, res, next) {
+  version += 1;
+
+  db.getAll(function(err, urls) {
+    if (err) return next(err);
+
+    urls.forEach(function(url) {
+      request.put({
+        url: url,
+        body: 'version=' + version
+      }, function(err, res, body) {
+        console.log('Trigger sent to ' + url);
+      });
+    });
+  });
+});
+
 app.listen(process.env.PORT || 3000);
